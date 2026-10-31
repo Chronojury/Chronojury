@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chronojury"
+version = "0.1.0"
+description = "Temporal evidence reasoning and spatio-temporal verdict aggregation"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "openai==0.28.1",
+    "backoff==2.2.1",
+    "opencv-python-headless==4.10.0.84",
+    "numpy==1.26.4",
+    "tqdm==4.67.1",
+]
+
+[project.optional-dependencies]
+train = [
+    "torch==2.7.1",
+    "torch-geometric==2.6.1",
+    "scikit-learn==1.5.2",
+    "matplotlib==3.9.4",
+    "tensorboard==2.18.0",
+    "transformers==5.16.1",
+]
+
+[project.scripts]
+chronojury-reason = "chronojury.swer.cli:main"
+chronojury-summarize = "chronojury.swer.case_summary:main"
+chronojury-train = "chronojury.stva.cli:main"
+chronojury-encode = "chronojury.stva.encoder:main"
+chronojury-explain = "chronojury.explanation.explainer:main"
+chronojury-report = "chronojury.explanation.report:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["chronojury*"]
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.ruff.lint]
+select = ["F"]
